@@ -24,10 +24,19 @@ function ProductDetail() {
 
   return (
     <div>
-      <h2>Detalhes do Produto</h2>
-      <pre>{JSON.stringify(product, null, 2)}</pre>
+      <h2>{product.name}</h2>
+      <img
+        src={`http://localhost:3000/uploads/${product.image}`}
+        alt={product.name}
+        style={{ maxWidth: '300px' }}
+      />
+      <p>{product.description}</p>
+      <p>Preço: R$ {product.price}</p>
+      <p>Estoque: {product.stock}</p>
+      <p>Categoria: {product.category}</p>
+      <p>Marca: {product.brand}</p>
     </div>
-  );
+  );  
 }
 
 export default ProductDetail;
