@@ -4,16 +4,15 @@ import axios from 'axios';
 
 function CreateProduct() {
   const navigate = useNavigate();
-  const [product, setProduct] = useState({
-    id: '',
-    name: '',
-    description: '',
-    price: '',
-    stock: '',
-    category: '',
-    brand: '',
-    image: null
-  });
+const [product, setProduct] = useState({
+  name: '',
+  description: '',
+  price: '',
+  stock: '',
+  category: '',
+  brand: '',
+  image: null
+});
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleImageChange = (e) => {
@@ -25,7 +24,7 @@ function CreateProduct() {
     }
   };
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -36,6 +35,9 @@ function CreateProduct() {
           if (product.image) {
             formData.append('image', product.image);
           }
+        } else if (key === 'price' || key === 'stock') {
+          // Convert price and stock to integers
+          formData.append(key, parseInt(product[key], 10));
         } else {
           formData.append(key, product[key]);
         }
@@ -56,13 +58,6 @@ function CreateProduct() {
     <div className="create-product-container">
       <h1>Create New Product</h1>
       <form onSubmit={handleSubmit} className="product-form">
-        <input
-          type="text"
-          placeholder="Product ID"
-          value={product.id}
-          onChange={(e) => setProduct({ ...product, id: e.target.value })}
-          required
-        />
         <input
           type="text"
           placeholder="Product Name"
